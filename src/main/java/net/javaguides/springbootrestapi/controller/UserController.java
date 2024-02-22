@@ -24,6 +24,8 @@ public class UserController {
 	
 	// http://localhost:8080/api/users
 	private UserService userService;
+	
+	
 	@PostMapping()
 	public ResponseEntity<UserDto> createUser(@RequestBody UserDto user)
 	{
