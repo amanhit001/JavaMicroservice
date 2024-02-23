@@ -1,5 +1,6 @@
 package net.javaguides.springbootrestapi.exception;
 
+import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,17 @@ public class GlobalExceptionHandler {
 				
 				);
 		return new ResponseEntity<>(errorDetails,HttpStatus.NOT_FOUND);
+	}
+	
+	public ResponseEntity<ErrorDetails> handleEmailAlreadyExists(EmailAlreadyExistsException exception,WebRequest webRequest)
+	{
+		ErrorDetails errorDetails = new ErrorDetails(
+				LocalDateTime.now(),
+				exception.getMessage(),
+				webRequest.getDescription(false),
+				"User_Email_Already_Exists"
+				);
+		return new ResponseEntity<>(errorDetails,HttpStatus.BAD_REQUEST);
 	}
 	
 

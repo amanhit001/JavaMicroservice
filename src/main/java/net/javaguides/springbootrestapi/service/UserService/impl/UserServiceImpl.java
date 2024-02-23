@@ -1,6 +1,7 @@
 package net.javaguides.springbootrestapi.service.UserService.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 import net.javaguides.springbootrestapi.dto.UserDto;
 import net.javaguides.springbootrestapi.entity.User;
+import net.javaguides.springbootrestapi.exception.EmailAlreadyExistsException;
 import net.javaguides.springbootrestapi.exception.ResourceNotFoundException;
 import net.javaguides.springbootrestapi.mapper.AutoUserMapper;
 import net.javaguides.springbootrestapi.repository.UserRepository;
@@ -23,6 +25,14 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public UserDto createUser(UserDto userDto) {
+		
+		Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
+		if(optionalUser.isPresent())
+		{
+			throw new EmailAlreadyExistsException("Email Already Exists for User");
+		}
+		
+		
 		//Convert the UserDto into User
 		
 		// 1. User user=UserMapper.mapToUser(userDto);
