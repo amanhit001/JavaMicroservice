@@ -73,18 +73,16 @@ public class UserController {
 		userService.deleteUser(id);
 	}
 	
-	@ExceptionHandler(ResourceNotFoundException.class)
-	public ResponseEntity<ErrorDetails> handleResourceNotFoundException(ResourceNotFoundException exception,WebRequest webRequest)
-	{
-		ErrorDetails errorDetails = new ErrorDetails(
-				LocalDateTime.now(),
-				exception.getMessage(),
-				webRequest.getDescription(false),
-				"User_NOT_Found"
-				
-				);
-		return new ResponseEntity<>(errorDetails,HttpStatus.NOT_FOUND);
-	}
+	/*
+	 * @ExceptionHandler(ResourceNotFoundException.class) public
+	 * ResponseEntity<ErrorDetails>
+	 * handleResourceNotFoundException(ResourceNotFoundException
+	 * exception,WebRequest webRequest) { ErrorDetails errorDetails = new
+	 * ErrorDetails( LocalDateTime.now(), exception.getMessage(),
+	 * webRequest.getDescription(false), "User_NOT_Found"
+	 * 
+	 * ); return new ResponseEntity<>(errorDetails,HttpStatus.NOT_FOUND); }
+	 */
 	
 	
 
