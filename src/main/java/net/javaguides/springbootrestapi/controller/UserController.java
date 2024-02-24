@@ -1,12 +1,10 @@
 package net.javaguides.springbootrestapi.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,12 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.WebRequest;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.javaguides.springbootrestapi.dto.UserDto;
-import net.javaguides.springbootrestapi.exception.ErrorDetails;
-import net.javaguides.springbootrestapi.exception.ResourceNotFoundException;
 import net.javaguides.springbootrestapi.service.UserService.UserService;
 
 @RestController
@@ -32,7 +28,7 @@ public class UserController {
 	
 	
 	@PostMapping()
-	public ResponseEntity<UserDto> createUser(@RequestBody UserDto user)
+	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto user)
 	{
 		UserDto savedUser = userService.createUser(user);
 		return new ResponseEntity<>(savedUser,HttpStatus.CREATED);
@@ -58,7 +54,7 @@ public class UserController {
 	//SpringBoot Rest Api to update the user for specific id
 	
 	@PutMapping("/update/{userid}")
-	public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto,
+	public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto,
 			@PathVariable("userid") Long Id)
 	{
 		UserDto user=userService.updateSpecificUser(userDto, Id);
